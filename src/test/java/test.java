@@ -6,7 +6,10 @@ import crud.crud;
 public class test {
     public static void main(String[] args)  {
 
-        crud.readDB();
+        crud.createDb();
+        crud.updateDb();
+        crud.deleteFromDb();
+        crud.readFromDB();
 
 
 
