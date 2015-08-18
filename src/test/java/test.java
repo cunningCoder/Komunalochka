@@ -6,14 +6,5 @@ public class test {
 
         GUIWindow guiWindow = new GUIWindow();
         guiWindow.mainFraime();
-
-        crud.createDb();
-        crud.updateDb();
-        crud.deleteFromDb();
-        crud.readFromDB();
-
-
-
-
     }
 }
