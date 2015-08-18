@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 public class crud {
-    public static ArrayList<month> monthArray = new ArrayList<month>();
     public static Vector a;
     public static Vector b;
 
@@ -20,7 +19,7 @@ public class crud {
     private static ResultSet rs = null;
 
     public static void createDb(){
-        String inDb = "insert into mydb.month (monthName,rentSum) value ('August',2);";
+        String inDb = "insert into mydb.month (monthName,rentSum) value ('August',25);";
         try {
             con = DriverManager.getConnection(url, user, password);
             stmt = con.createStatement();
@@ -57,9 +56,14 @@ public class crud {
 
 
                 int numColumns = rs.getMetaData().getColumnCount();
+                System.out.println(numColumns);
+
                 Vector column = new Vector();
                 for (int i = 1; i <= numColumns; i++) {
-                    column.add(rs.getMetaData().getColumnName(i));        }
+                    column.add(rs.getMetaData().getColumnName(i));
+                    System.out.println(column);
+                }
+
                 Vector data = new Vector();
                 while (rs.next()) {
                     Vector row = new Vector();
@@ -71,17 +75,6 @@ public class crud {
                 a=column;
                 b=data;
 
-
-                while (rs.next()) {
-                    int id = rs.getInt("idMonth");
-                    String name = rs.getString("monthName");
-                    float rentSum = rs.getFloat("rentSum");
-                    month month = new month(id,name,rentSum);
-                    monthArray.add(month);
-                    System.out.println("ID" + id +" Month "+ name +" Sum:"+ rentSum );
-
-
-                }
             }
             catch (SQLException sqlEx) {
                 sqlEx.printStackTrace();

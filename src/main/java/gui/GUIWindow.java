@@ -6,8 +6,6 @@ import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 
-
-
 public class GUIWindow {
     public void mainFraime (){
         JFrame frame = new JFrame("Калькулятор стоимости услуг ЖКХ");
@@ -30,10 +28,13 @@ public class GUIWindow {
         crud.createDb();
         crud.readFromDB();
 
-        JTable table = new JTable(crud.b,crud.a);
+        //add vectors 2 table
+        JTable table = new JTable(crud.b, crud.a);
+        // add table header's
+        mainPanel.setLayout(new BorderLayout());
+        mainPanel.add(table.getTableHeader(), BorderLayout.PAGE_START);
+        mainPanel.add(table, BorderLayout.CENTER);
         mainPanel.add(table);
-
-        System.out.println(crud.monthArray.size());
 
 
 
