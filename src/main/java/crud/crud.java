@@ -4,9 +4,12 @@ import entity.month;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Vector;
 
 public class crud {
     public static ArrayList<month> monthArray = new ArrayList<month>();
+    public static Vector a;
+    public static Vector b;
 
     private static final String url = "jdbc:mysql://localhost:3306/mydb";
     private static final String user = "root";
@@ -52,6 +55,23 @@ public class crud {
                 stmt = con.createStatement();
                 rs = stmt.executeQuery(query);
 
+
+                int numColumns = rs.getMetaData().getColumnCount();
+                Vector column = new Vector();
+                for (int i = 1; i <= numColumns; i++) {
+                    column.add(rs.getMetaData().getColumnName(i));        }
+                Vector data = new Vector();
+                while (rs.next()) {
+                    Vector row = new Vector();
+                    for (int i = 1; i <= numColumns; i++) {
+                        row.add(rs.getString(i));
+                    }
+                    data.add(row);
+                }
+                a=column;
+                b=data;
+
+
                 while (rs.next()) {
                     int id = rs.getInt("idMonth");
                     String name = rs.getString("monthName");
@@ -59,6 +79,8 @@ public class crud {
                     month month = new month(id,name,rentSum);
                     monthArray.add(month);
                     System.out.println("ID" + id +" Month "+ name +" Sum:"+ rentSum );
+
+
                 }
             }
             catch (SQLException sqlEx) {

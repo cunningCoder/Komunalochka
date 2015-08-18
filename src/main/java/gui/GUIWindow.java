@@ -1,12 +1,9 @@
 package gui;
 
 import crud.crud;
-import entity.month;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableModel;
 import java.awt.*;
 
 
@@ -32,21 +29,11 @@ public class GUIWindow {
 
         crud.createDb();
         crud.readFromDB();
-        System.out.println(crud.monthArray.size());
 
-
-
-
-
-        TableModel tm = new MyTable(crud.monthArray);
-        JTable table = new JTable(tm);
-        frame.getContentPane().add(new JScrollPane(table));
+        JTable table = new JTable(crud.b,crud.a);
         mainPanel.add(table);
 
-
-
-
-
+        System.out.println(crud.monthArray.size());
 
 
 
@@ -64,56 +51,5 @@ public class GUIWindow {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
-
-    public class MyTable extends AbstractTableModel{
-
-        private java.util.List<month> monthArrayList;
-
-        public MyTable(java.util.List<month>  monthArrayList){
-            super();
-            this.monthArrayList =  monthArrayList;
-        }
-
-        public int getColumnCount() {
-            return 4;
-        }
-
-        @Override
-        public String getColumnName(int col) {
-            switch (col) {
-                case 0:
-                    return "Id";
-                case 1:
-                    return "Name";
-                case 2:
-                    return "Sum";
-                default:
-                    return " ";
-            }
-        }
-
-        public int getRowCount() {
-            return monthArrayList.size();
-        }
-
-        public Object getValueAt(int rowIndex, int columnIndex) {
-            month month = monthArrayList.get(rowIndex);
-            switch (columnIndex){
-                case 0: return month.getId();
-                case 1: return month.getMonthName();
-                case 2: return month.getRentSum();
-                default:return " szdfvsd";
-            }
-
-        }
-
-        public boolean isCellEditable(int rowIndex, int columnIndex) {
-            return false;
-        }
-
-
-
-
-        }
 
 }
